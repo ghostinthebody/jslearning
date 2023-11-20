@@ -1,16 +1,5 @@
 "use strict";
-/* Задание на урок:
 
-1) Первую часть задания повторить по уроку
-
-2) Создать функцию showMyDB, которая будет проверять свойство privat. Если стоит в позиции
-false - выводит в консоль главный объект программы
-
-3) Создать функцию writeYourGenres в которой пользователь будет 3 раза отвечать на вопрос 
-"Ваш любимый жанр под номером ${номер по порядку}". Каждый ответ записывается в массив данных
-genres
-
-P.S. Функции вызывать не обязательно*/
 
 let numberOfFilms;
 
@@ -120,6 +109,35 @@ function getMathResult(a, b) {
     return stroka;
 }
 console.log(getMathResult(4, 5));
+
+// Задача 4
+function calculateVolumeAndArea(data) {
+    if (data % 1 != 0 || typeof(data) != "number" || data <= 0) { /*!Namber.isInteger(data) - определяет целое ли число*/
+        console.log("При вычислении произошла ошибка");
+    } else {
+        let volume = 0;
+        let area = 0;
+
+        volume = data * data * data;
+        area = data * data * 6;
+        return `Объем куба: ${volume}, площадь всей поверхности: ${area}`;
+    }
+}
+console.log(calculateVolumeAndArea(6));
+
+// Задача 5
+function getCoupeNumber(data) {
+    if (!Number.isInteger(data) || typeof(data) != "number" || data < 0) {
+        console.log("Ошибка. Проверьте правильность введенного номера места");
+    } else if ( data === 0 || data > 36) {
+        console.log("Таких мест в вагоне не существует");
+    } 
+    return Math.ceil(data / 4);
+    
+    
+}
+console.log(getCoupeNumber(23));
+
 
 
 
