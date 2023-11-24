@@ -90,8 +90,39 @@ function findMaxNumber(q, w, e, r) {
 }
 console.log(findMaxNumber(3, 42, "3", "32"));
 
+// Задача 8
+function fib(cif) {
+    if (!Number.isInteger(cif) || typeof(cif) !== "number" || cif <= 0) {
+        return "";
+    }
+    let str = "";
+    let odin = 0;
+    let dva = 1;
+    for (let i = 0; i < cif; i++) {
+        if (i === cif) {
+            str += `${odin}`;
+        } else {
+            str += `${odin} `;
+        }
+        let tri = odin + dva;
+        odin = dva;
+        dva = tri;
+    }
+    return str;
+}
+console.log(fib(1));
 
-
-
-
-
+/*
+ПОСЛЕДОВАТЕЛЬНОСТЬ ФИБОНАЧЧИ (без рекурсии):
+function fib(cif) {
+    let qwe = [0, 1, 1];
+    
+    for (let i = 2; i < cif; i++) {
+        let first = qwe[i - 1];
+        let second = qwe[i - 2];
+        qwe[i] = first + second;
+    };
+    return qwe;
+}
+console.log(fib(10));
+*/
