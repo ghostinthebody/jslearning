@@ -1,55 +1,39 @@
 "use strict";
 
-const options = {
-    name: "test",
-    width: 1024,
-    height: 1024,
-    color: {
-        border: "black",
-        bg: "red"
-    }
-};
+const qwe = [1, 1, 89, 4, 5, 6];
 
-// console.log(options.name); /*Обратились к конкретному ключу за значением*/
+// qwe.pop();                     /*Удаляет последний элемент в массиве*/
+// console.log(qwe);
 
-// delete options.name; 
+// qwe.push(10);                  /*Добавляет элемент в конец массива*/
+// console.log(qwe);
 
-// console.log(options);
-
-for (let key in options) {
-    console.log(`Свойство ${key} имеет значение ${options[key]}`); /*Выводим всё ввиде строк но объект в объекте for in не может преобразовать в строку поэтому выходит object Object*/
+for (let i = 0; i < qwe.length; i++) {      /*Перебирает массив*/
+    console.log(qwe[i]);
 }
 
-// ---------------------------------------------------------------------------------------------------------
-
-const outerObject  = {
-    name: "Внешний объект",
-    form: "Квадрат",
-    innerObject: {
-        property1: "Свойство 1 во вложенном объекте",
-        property2: "Свойство 2 во вложенном объекте"
-    },
-    method: function() {
-        console.log("Метод во внешнем объекте");
-    }
-};
-
-//console.log(outerObject["innerObject"]["property1"]); /*Обратились к ключу в объекте в объекте. Можно и через точку.*/
-
-for (let key in outerObject) {
-    if (typeof(outerObject[key]) === "object") {
-        for (let i in outerObject[key]) {
-            console.log(`Свойство ${key} имеет значение ${outerObject[key][i]}`);
-        }
-    } else {
-        console.log(`Свойство ${key} имеет значение ${outerObject[key]}`);
-    }
-};
-
-console.log(Object.keys(outerObject).length); /*Выводит в виде массива каждый ключ из объекта. А length просто считает их*/
-
-outerObject.method(); /*Создали метод "method" и вызвали его*/
+for (let value of qwe) {                    /*Перебирает массив(объект не перебирает)*/
+    console.log(value);                     /*Зато работает break и continue*/
+}
 
 
-const {property1, property2} = outerObject.innerObject; /*Деструктуризация. Вытащили в качестве отдельных переменных ключи из объекта. Пока хз зачем это...*/
-console.log(property1)
+
+const asd = ["m", "e", "t", "a"];
+
+// asd[99] = "GERA PKHAT";                   /*Записали на 99ю позицию*/
+// console.log(asd.length);
+
+asd.forEach(function(item, i, asd) {                     /*forEach проходится по каждому элементу массива. 1значение 2номер по счёту 3массив*/  
+    console.log(`${i}: ${item} внутри массива ${asd}`);
+});
+
+
+
+// const str1 = prompt("", "");                   /*Сделали из строки --> массив с помощью split*/
+// const products = str1.split(", ");             /*, - это разделитель. Он должен быть чётким*/
+// console.log(products);
+
+const str2 = prompt("", "");
+const products = str2.split(", ");             /*Сделали из строки --> массив*/
+console.log(products.join("; "));              /*а потом сделали строчку с разделителем ; */
+
