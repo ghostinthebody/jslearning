@@ -1,39 +1,57 @@
 "use strict";
 
-const qwe = [1, 1, 89, 4, 5, 6];
+let a = 10;
+let b = a;
 
-// qwe.pop();                     /*Удаляет последний элемент в массиве*/
-// console.log(qwe);
+b = a + 5;                  /*Логично всё потому что примитивный тип данных*/
+console.log(a);
+console.log(b);
 
-// qwe.push(10);                  /*Добавляет элемент в конец массива*/
-// console.log(qwe);
+const obj = {
+    a: 7,
+    b: 11
+};
 
-for (let i = 0; i < qwe.length; i++) {      /*Перебирает массив*/
-    console.log(qwe[i]);
+const copy = obj;            /*Не логично. Потому что нет копирования а есть ссылка*/
+
+copy.a = 36;
+console.log(obj);
+console.log(copy);
+
+
+
+function fullCopy(mainObj) {             /*Создали функцию которая поверхностно копирует(потому что не копирует вложенное)*/
+    let objCopy = {};
+
+    for (let key in mainObj) {
+        objCopy[key] = mainObj[key];
+    }
+
+    return objCopy
 }
 
-for (let value of qwe) {                    /*Перебирает массив(объект не перебирает)*/
-    console.log(value);                     /*Зато работает break и continue*/
-}
+const numbers = {
+    a: 9,
+    b: 5,
+    c: {
+        z: 12,
+        y: 33
+    }
+};
+
+const newNumbers = fullCopy(numbers);
+
+newNumbers.a = 777;
+newNumbers.c.y = 44;                      /*ПОВЕРХНОСТНО! Что не ясно?*/
+console.log(numbers);
+console.log(newNumbers);
 
 
 
-const asd = ["m", "e", "t", "a"];
-
-// asd[99] = "GERA PKHAT";                   /*Записали на 99ю позицию*/
-// console.log(asd.length);
-
-asd.forEach(function(item, i, asd) {                     /*forEach проходится по каждому элементу массива. 1значение 2номер по счёту 3массив*/  
-    console.log(`${i}: ${item} внутри массива ${asd}`);
-});
 
 
 
-// const str1 = prompt("", "");                   /*Сделали из строки --> массив с помощью split*/
-// const products = str1.split(", ");             /*, - это разделитель. Он должен быть чётким*/
-// console.log(products);
 
-const str2 = prompt("", "");
-const products = str2.split(", ");             /*Сделали из строки --> массив*/
-console.log(products.join("; "));              /*а потом сделали строчку с разделителем ; */
+
+
 
