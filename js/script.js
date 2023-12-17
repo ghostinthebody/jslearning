@@ -1,56 +1,51 @@
 "use strict";
 
-let a = 10;
-let b = a;
+const personalPlanPeter = {
+    name: "Peter",
+    age: "29",
+    skills: {
+        languages: ['ru', 'eng'],
+        programmingLangs: {
+            js: '20%',
+            php: '10%'
+        },
+        exp: '1 month'
+    },
+    showMethod: function(plan) {        /*При его вызове метод будет принимать в себя объект и возвращать строку*/
+    // const {age} = plan;                  <--
+    // const {languages} = plan.skills;     <--
+        let str = `Мне ${plan.age} и я владею языками: `;
 
-b = a + 5;                  /*Логично всё потому что примитивный тип данных*/
-console.log(a);
-console.log(b);
-
-const obj = {
-    a: 7,
-    b: 11
+        plan.skills.languages.forEach(function(i) {
+            str += `${i.toUpperCase()} `;
+        });
+        return str;
+    }
 };
 
-const copy = obj;            /*Не логично. Потому что нет копирования а есть ссылка*/
 
-copy.a = 36;
-console.log(obj);
-console.log(copy);
+console.log(personalPlanPeter.showMethod(personalPlanPeter));
 
 
+showProgrammingLangs(personalPlanPeter);        /*Функция которая принимает в себя объект со всеми данными и возвращать строку с опытом*/
+function showExperience(plan) {
+    const {exp} = plan.skills;
 
-function fullCopy(mainObj) {             /*Создали функцию которая поверхностно копирует(потому что не копирует вложенное)*/
-    let objCopy = {};
-
-    for (let key in mainObj) {
-        objCopy[key] = mainObj[key];
-    }
-
-    return objCopy
+    return exp;
 }
 
-const numbers = {
-    a: 9,
-    b: 5,
-    c: {
-        z: 12,
-        y: 33
-    }
-};
-
-const newNumbers = fullCopy(numbers);
-
-newNumbers.a = 777;
-newNumbers.c.y = 44;                      /*ПОВЕРХНОСТНО! Что не ясно?*/
-console.log(numbers);
-console.log(newNumbers);
+console.log(showExperience(personalPlanPeter));
 
 
-
-
-
-
+function showProgrammingLangs(plan) {           /**/
+    let DK = "";
+    // const {programmingLangs} = plan.skills;  <--
+    for (let key in plan.skills.programmingLangs) {
+        DK += `Язык ${key} изучен на ${plan.skills.programmingLangs[key]}\n`;
+    };
+    return DK;
+}
+console.log(showProgrammingLangs(personalPlanPeter));
 
 
 
