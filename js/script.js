@@ -1,124 +1,132 @@
 "use strict";
 
-const family = ['Peter', 'Ann', 'Alex', 'Linda'];
+/*
+1) У нас уже есть рабочее приложение, состоящее из отдельных функций. Представьте, что
+перед вами стоит задача переписать его так, чтобы все функции стали методами объекта personalMovieDB
+Такое случается в реальных продуктах при смене технологий или подхода к архитектуре программы
 
-function showFamily(arr) {
+2) Создать метод toggleVisibleMyDB, который при вызове будет проверять свойство privat. Если оно false - он
+переключает его в true, если true - переключает в false. Протестировать вместе с showMyDB.
 
-    let str1 = "";
-    arr.forEach(function(i){
-        str1 += `${i} `;
-    });
-    if (arr.length <= 0) {
-        return "Семья пуста";
-    } else {
-    return `Семья состоит из: ${str1}`;
+3) В методе writeYourGenres запретить пользователю нажать кнопку "отмена" или оставлять пустую строку. 
+Если он это сделал - возвращать его к этому же вопросу. После того, как все жанры введены - 
+при помощи метода forEach вывести в консоль сообщения в таком виде:
+"Любимый жанр #(номер по порядку, начиная с 1) - это (название из массива)"*/
+
+
+function fullCopy(mainObj) {
+    let objCopy = {};
+
+    for (let key in mainObj) {
+        objCopy[key] = mainObj[key];
     }
 
-    // let str = "";
-    // if (arr.length <= 0) {
-    //     return "Семья пуста";
-    // } else {
-    //     str += "Семья состоит из: ";
-    //     arr.join(" ");
-    //     return `${str}${arr.join(" ")}`
-    // }
+    return objCopy
 }
-console.log(showFamily(family));
 
 
-const favoriteCities = ['liSBon', 'ROME', 'miLan', 'Dublin'];
 
-function standardizeStrings(arr) {
-    arr.forEach(function(i) {
-        console.log(i.toLowerCase());
-    });
-
-    // function standardizeStrings(arr) {
-    //     let str = ""
-    //     arr.forEach(function(i) {
-    //         str += `${i.toLowerCase()}\n`
-    //     });
-    //     console.log(str);
-    // }
-}
-standardizeStrings(favoriteCities);
-
-
-const someString = 'This is some strange string';
-
-function reverse(str) {
-    if (typeof(str) !== "string") {
-        return "Ошибка!"
+const personalMovieDB = {
+    count: 0,
+    testForQwe: 0,
+    movies: {},
+    actors: {},
+    genres: [3, 4, 9],
+    privat: false,
+    qwe: function (a, b) {
+        personalMovieDB.testForQwe = a + b;
+    },
+    start: function() {
+        personalMovieDB.count = +prompt("Сколько фильмов вы уже посмотрели?", "");
+    
+        while (personalMovieDB.count == "" || personalMovieDB.count == null || isNaN(personalMovieDB.count)) {              /*isNaN возвращает true если не число*/
+            personalMovieDB.count = +prompt("Сколько фильмов вы уже посмотрели?", "");
+        }
+    },
+    rememberMyFilms: function() {
+        for (let i = 0; i < 2; i++) {
+            const a = prompt('Один из последних просмотренных фильмов?', ''),
+            b = prompt('На сколько оцените его?', '');
+    
+            if (a != null && b != null && a != '' && b != '' && a.length < 50) {
+                personalMovieDB.movies[a] = b;
+                console.log('done');
+            } else {
+                console.log('error');
+                i--;
+            }
+        }
+    },
+    detectPersonalLevel: function() {
+        if (personalMovieDB.count < 10) {
+            console.log("Просмотрено довольно мало фильмов");
+        } else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
+            console.log("Вы классический зритель");
+        } else if (personalMovieDB.count >= 30) {
+            console.log("Вы киноман");
+        } else {
+            console.log("Произошла ошибка");
+        }
+    },
+    writeYourGenres: function() {
+        for (let i = 1; i < 2; i++) {
+            const QWE = prompt(`Введите ваши любимые жанры через запятую`);
+            
+            if (QWE != null && QWE != '') {
+                personalMovieDB.genres = QWE.split(", ");
+                personalMovieDB.genres.sort();
+                console.log('done');
+            } else {
+                console.log('error');
+                i--;
+            }
+        }
+        personalMovieDB.genres.forEach((a, b) => {
+            console.log(`Любимый жанр #${b + 1} - это ${a}`);
+        });
+    },
+    showMyDB: function(hidden) {
+        if (!hidden) {
+            console.log(personalMovieDB);        
+        }
+    },
+    toggleVisibleMyDB: function() {
+        if (!personalMovieDB.privat) {                     /*personalMovieDB.privat === false - тоже самое*/
+            personalMovieDB.privat = true;
+        } else {
+            personalMovieDB.privat = false;
+        }
+        // personalMovieDB.privat = !personalMovieDB.privat ? true : false;             /*2ой вариант*/
+        // personalMovieDB.privat = !personalMovieDB.privat;                            /*3ой вариант*/
     }
-    let DK = str.split("");
-    let RwW = [];
+};
 
-    for (let i = DK.length - 1; i >= 0; i--) {
-        RwW += DK[i];                           /*На этом этапе RwW становится строкой и поэтому нам не нужен join для возвращения строки*/
-    };
-    
-    
-    return RwW;
-}
-console.log(reverse(someString));
-
-
-const baseCurrencies = ['USD', 'EUR'];
-const additionalCurrencies = ['UAH', 'RUB', 'CNY'];
-
-function availableCurr(arr, missingCurr) {
-    const newArr = arr.filter(value => value !== missingCurr).join("\n");
-    return arr.length === 0 ? "Нет доступных валют" : `Доступные валюты:\n${newArr}`;
-    
-    // const newArr = arr.filter(function(value) {               /*retrun заканчивает функцию но не filter*/
-    //     if (value !== missingCurr) {
-    //         return true
-    //     } else {
-    //         return false
-    //     };
-    // });
-    // console.log(newArr);
+personalMovieDB.start();
+personalMovieDB.rememberMyFilms();
+personalMovieDB.detectPersonalLevel();
+personalMovieDB.writeYourGenres();
+personalMovieDB.showMyDB(personalMovieDB.privat);
 
 
 
-    // let newArr2 = [];
-    // arr.forEach(value => {
-    //     if (value !== missingCurr) {
-    //         newArr2.push(value);
-    //     }
-    // });
-    // return newArr2;
 
-
-    // А если мне нужно из массива в 100знач. вырезать значения НО! только из первых 55ти например а 45 оставить как есть? 
-    // const array100 = [5, 13, 77, 77, 36, 95, 50, 71, 86, 4, 41, 80, 89, 87, 15, 66, 40, 80, 90, 8, 42, 86, 77, 95, 62, 7, 97, 76, 54, 8, 88, 52, 94, 21, 18, 62, 12, 40, 53, 79, 51, 23, 23, 18, 4, 3, 69, 10, 2, 12, 10, 88, 64, 73, 44, 62, 79, 29, 85, 47, 92, 43, 25, 2, 64, 45, 40, 94, 5, 88, 59, 13, 59, 76, 93, 1, 36, 7, 60, 30, 88, 8, 5, 81, 47, 90, 35, 47, 96, 6, 82, 66, 24, 46, 87, 48, 20, 77, 77, 45]
-    // const indi = 77;
-    // const newArray = array100.filter((value, i) => i > 55 || value !== indi);
-    // console.log(newArray);
-}
-console.log(availableCurr([...baseCurrencies, ...additionalCurrencies], 'CNY'));
+personalMovieDB.qwe(8, 3);                              /*Возвали к методу(функции) qwe*/
+console.log(personalMovieDB.testForQwe);                /*Вывели уже изменённую "testForQwe*/
 
 
 
-let OG = ["a", "c", "b"];                                  /*Вычли из OG mood*/
-let mood = "c";
 
-let updatedOG = OG.filter(value => value !== mood);
-// let updatedOG = OG.filter(function(value) {
-    //     return value !== mood;
-    // });
-    console.log("Обновленный массив 'OG':", updatedOG);
-    
-    let OG2 = ["7", "11", "32"];                               /*Вычли из OG2 mood2*/
-let mood2 = "11";
 
-let updatedOG2 = [];                                       /*Ничо не ретёрнится. (Записали всё в другой массив)*/
-OG2.forEach(value => {
-    if (value !== mood2) {
-        updatedOG2.push(value);
-    }
-});
-console.log("Обновленный массив 'OG2':", updatedOG2);
+
+
+
+
+
+
+
+
+
+
 
 
 
