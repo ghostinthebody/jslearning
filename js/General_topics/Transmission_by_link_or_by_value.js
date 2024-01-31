@@ -44,4 +44,4 @@ const newNumbers = fullCopy(numbers);
 newNumbers.a = 777;
 newNumbers.c.y = 44;                      /*ПОВЕРХНОСТНО! Что не ясно?*/
 console.log(numbers);
-console.log(newNumbers);
+console.log(newNumbers);                  /*Поменялось везде потому что на "с" только ссылка. Сам "c" не скопировался.*/

@@ -10,14 +10,14 @@ const options = {
     }
 };
 
-// console.log(options.name); /*Обратились к конкретному ключу за значением*/
+// console.log(options.name);                                        /*Обратились к конкретному ключу за значением*/
 
 // delete options.name; 
 
 // console.log(options);
 
 for (let key in options) {
-    console.log(`Свойство ${key} имеет значение ${options[key]}`); /*Выводим всё ввиде строк но объект в объекте for in не может преобразовать в строку поэтому выходит object Object*/
+    console.log(`Свойство ${key} имеет значение ${options[key]}`);   /*Выводим всё ввиде строк но объект в объекте for in не может преобразовать в строку поэтому выходит object Object*/
 }
 
 // ---------------------------------------------------------------------------------------------------------
@@ -34,7 +34,7 @@ const outerObject  = {
     }
 };
 
-//console.log(outerObject["innerObject"]["property1"]); /*Обратились к ключу в объекте в объекте. Можно и через точку.*/
+//console.log(outerObject["innerObject"]["property1"]);         /*Обратились к ключу в объекте в объекте. Можно и через точку.*/
 
 for (let key in outerObject) {
     if (typeof(outerObject[key]) === "object") {
@@ -46,11 +46,25 @@ for (let key in outerObject) {
     }
 };
 
-console.log(Object.keys(outerObject).length); /*Выводит в виде массива каждый ключ из объекта. А length просто считает их*/
+console.log(Object.keys(outerObject).length);                   /*Выводит в виде массива каждый ключ из объекта. А length просто считает их*/
 
-outerObject.method(); /*Создали метод "method" и вызвали его*/
+outerObject.method();                                           /*Создали метод "method" и вызвали его*/
 
 
-const {property1, property2} = outerObject.innerObject; /*Деструктуризация. Вытащили в качестве отдельных переменных ключи из объекта. Пока хз зачем это...*/
+const {property1, property2} = outerObject.innerObject;         /*Деструктуризация. Вытащили в качестве отдельных переменных ключи из объекта. Пока хз зачем это...*/
 /*В {} то какие переменные хотим вытащить. После то откуда мы хотим достать данные объекты.*/
 console.log(property1)
+
+
+
+
+
+
+// Пример деструктуризации массива
+const colors = ['red', 'green', 'blue'];
+
+const [firstColor, secondColor, thirdColor] = colors;
+
+console.log(firstColor);  // Вывод: 'red'
+console.log(secondColor); // Вывод: 'green'
+console.log(thirdColor);  // Вывод: 'blue'
